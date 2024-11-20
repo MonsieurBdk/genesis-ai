@@ -8,10 +8,16 @@ def main(request):
     return render(request, "main/index.html", context={})
 
 def transform_data_map_to_dataframe(data_map:map):
-    data = pd.DataFrame(data=data)  
+
+    # POUR TRANSFORMER LES DONNÉES EN DATAFRAME ( TRAITABLES EN PANDA )
+
+    data = pd.DataFrame(data=data_map)  
     return data
 
 def transform_feateares(data:pd.DataFrame):
+
+    # POUR PRÉPARER LES DONNÉES À LA PRÉDICTION
+
     if(data is pd.DataFrame):
         df['MS SubClass'] = df['MS SubClass'].apply(str)
         df_nums = df.select_dtypes(exclude='object')
@@ -22,6 +28,7 @@ def transform_feateares(data:pd.DataFrame):
     return None
 
 def predict(data:pd.DataFrame):
+    
     model = jb.load("../assets/linear_model.pkl")
     prediction = model.predict(data)
     return prediction
