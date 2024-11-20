@@ -4,5 +4,5 @@ import pandas as pd
 import joblib as jb
 
 # Create your views here.
-def main():
-    return render("main/index.html", context={})
+def main(request):
+    return render(request, "main/index.html", context={})
