@@ -8,7 +8,20 @@
 <body>
     <nav>
         <a href="">Genesis AI</a>
+        <br/>
+        <a href="predict/">voir predict</a>
     </nav>
-    
+
+    <form method="GET" action="{% url 'predict' %}">
+        {% csrf_token %}
+        <input type="text" name="predict1">
+        <input type="text" name="predict2">
+        <input type="submit" value="Envoyer">
+    </form>
+
+    {% if prediction %}
+    <h2>Résultat de la prédiction : {{ prediction }}</h2>
+    {% endif %}
+
 </body>
 </html>
