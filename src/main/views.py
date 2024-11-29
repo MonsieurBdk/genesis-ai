@@ -29,6 +29,7 @@ def transform_feateares(data: pd.DataFrame):
     return None
 
 
+"""
 def predict(request):
     if request.method == 'GET':
         data_entry_1 = request.GET.get('predict1')
@@ -41,3 +42,23 @@ def predict(request):
         model = jb.load("./assets/linear_model.pkl")
         prediction = model.predict(data_entry_transformed)
         return render(request, 'index.html', {prediction: prediction[0]})
+"""
+
+
+def predict(request):
+    if request.method == "POST":
+        # Récupération des données du formulaire html
+        ms_subclass = int(request.POST.get('ms_subclass'))
+        ms_zoning = request.POST.get('ms_zoning')
+        lot_area = float(request.POST.get('lot_area'))
+        street = request.POST.get('street')
+        lot_shape = request.POST.get('lot_shape')
+        year_built = int(request.POST.get('year_built'))
+        overall_qual = int(request.POST.get('overall_qual'))
+        overall_cond = int(request.POST.get('overall_cond'))
+        gr_liv_area = float(request.POST.get('gr_liv_area'))
+        full_bath = int(request.POST.get('full_bath'))
+        bedroom = int(request.POST.get('bedroom'))
+        kitchen_qual = request.POST.get('kitchen_qual')
+
+    return render(request, "main/index.html")
