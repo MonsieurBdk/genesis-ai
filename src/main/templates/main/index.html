@@ -1,27 +1,359 @@
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
+    {% tailwind_css %}
     <title>Genesis AI</title>
 </head>
-<body>
-    <nav>
+<body class="text-center" style="background-color: rgb(23 37 84)">
+    <nav class="bg-blue-950">
         <a href="">Genesis AI</a>
         <br/>
         <a href="predict/">voir predict</a>
     </nav>
 
-    <form method="GET" action="{% url 'predict' %}">
-        {% csrf_token %}
-        <input type="text" name="predict1">
-        <input type="text" name="predict2">
-        <input type="submit" value="Envoyer">
-    </form>
+    <main>
+    <h1 class="text-3xl font-bold text-green-400">Prédisez le prix d'une maison</h1>
+     <div class="flex justify-start" style="background-color: rgb(219 234 254); width:900px; margin-left:205px;">
+        <form class=" flex flex-col justify-center text-orange-600 mb-8" style="color: rgb(234 88 12); width:350px; margin-left: 50px; margin-bottom: 10px;" method="POST" action="{% url 'predict' %}">
+            {% csrf_token %}
+            <label for="ms_subclass">Type d'habitation :</label>
+            <select class="form-select rounded" id="ms_subclass" name="ms_subclass">
+                <option value="20">1-Story 1946 & Newer</option>
+                <option value="30">1-Story 1945 & Older</option>
+                <option value="40">1-STORY W/FINISHED ATTIC ALL AGES </option>
+                <option value="45">1-1/2 STORY - UNFINISHED ALL AGES</option>
+                <option value="50">1-1/2 STORY FINISHED ALL AGES</option>
+                <option value="60">2-STORY 1946 & NEWER</option>
+                <option value="70">2-STORY 1945 & OLDER</option>
+                <option value="75">2-1/2 STORY ALL AGES</option>
+                <option value="80">SPLIT OR MULTI-LEVEL</option>
+                <option value="85">SPLIT FOYER</option>
+                <option value="90">DUPLEX - ALL STYLES AND AGES</option>
+                <option value="120"> 1-STORY PUD (Planned Unit Development) - 1946 & NEWER</option>
+                <option value="150">1-1/2 STORY PUD - ALL AGES</option>
+                <option value="160">2-STORY PUD - 1946 & NEWER</option>
+                <option value="180">PUD - MULTILEVEL - INCL SPLIT LEV/FOYER</option>
+                <option value="190"> 2 FAMILY CONVERSION - ALL STYLES AND AGES</option>
+            </select><br><br>
+            <!-- Zone de la maison -->
+            <label for="ms_zoning">Zone :</label>
+            <select class="rounded-xl" id="ms_zoning" name="ms_zoning">
+                <option value="A">Agriculture</option>
+                <option value="C">Commercial</option>
+                <option value="FV">Floating Village Residential</option>
+                <option value="I">Industrial</option>
+                <option value="RL">Residential Low Density</option>
+                <option value="RP">Residential Low Density Park</option>
+                <option value="RM">Residential Medium Density</option>
+                <option value="RH">Residential High Density</option>
+            </select><br><br>
+    
+            <label for="lot_area"> Lot size in square feet:</label>
+            <input class="rounded" type="number" id="lot_area" name="lot_area" required><br><br>
 
-    {% if prediction %}
-    <h2>Résultat de la prédiction : {{ prediction }}</h2>
-    {% endif %}
+            <label for="LotFrontage">  Linear feet of street connected to property</label>
+            <input class="rounded" type="number" id="LotFrontage" name="LotFrontage" required><br><br>
+    
+            <label for="street">Street: Type of road access to property:</label>
+            <select id="street" name="street">
+                <option value="Pave">Paved</option>
+                <option value="Grvl">Gravel</option>
+            </select><br><br>
 
+            <label for="Alley"> Type of alley access to property</label>
+            <select id="Alley" name="Alley">
+                <option value="Pave">Paved</option>
+                <option value="Grvl">Gravel</option>
+            </select><br><br>
+    
+            <label for="LandContour">Street: Type of road access to property:</label>
+            <select id="LandContour" name="LandContour">
+                <option value="Lvl">Near Flat/Level</option>
+                <option value="Bnk">Banked - Quick and significant rise from street grade to building</option>
+            </select><br><br>
+
+            <label for="Utilities"> Type of utilities available</label>
+            <select id="Utilities" name="Utilities">
+                <option value="AllPub"> All public Utilities (E,G,W,& S)</option>
+                <option value="NoSewr"> Electricity, Gas, and Water (Septic Tank)</option>
+            </select><br><br>
+
+            <label for="LotConfig">LotConfig</label>
+            <select id="LotConfig" name="LotConfig">
+                <option value="Inside">Inside lot</option>
+                <option value="Corner"> Corner lot</option>
+            </select><br><br>
+
+            <label for="LandSlope">LandSlope: Slope of property</label>
+            <select id="LandSlope" name="LandSlope">
+                <option value="Gtl">Gentle slope</option>
+                <option value="Mod"> Moderate Slope</option>
+            </select><br><br>
+
+            <label for="Neighborhood">Physical locations within Ames city limits</label>
+            <select id="Neighborhood" name="Neighborhood">
+                <option value="Blmngtn"> Bloomington Heights</option>
+                <option value="Gilbert"> Gilbert</option>
+            </select><br><br>
+
+            <label for="Condition1">Proximity to various conditions</label>
+            <select id="Condition1" name="Condition1">
+                <option value="Artery">Adjacent to arterial street</option>
+                <option value="Feedr">Adjacent to feeder street</option>
+                <option value="Norm">Normal proximity</option>
+                <option value="RRNn">Within 200' of North-South Railroad</option>
+                <option value="RRAn">Adjacent to North-South Railroad</option>
+                <option value="RRAe">Adjacent to East-West Railroad</option>
+                <option value="PosN">Near positive off-site feature--park, greenbelt, etc.</option>
+                <option value="PosA">Adjacent to postive off
+            </select><br><br>
+
+            <label for="Condition2">Proximity to various conditions (if more than one is present)</label>
+            <select id="Condition2" name="Condition2">
+                <option value="Artery">Adjacent to arterial street</option>
+                <option value="Feedr">Adjacent to feeder street</option>
+                <option value="Norm">Normal proximity</option>
+                <option value="RRNn">Within 200' of North-South Railroad</option>
+                <option value="RRAn">Adjacent to North-South Railroad</option>
+                <option value="RRAe">Adjacent to East-West Railroad</option>
+                <option value="PosN">Near positive off-site feature--park, greenbelt, etc.</option>
+                <option value="PosA">Adjacent to postive off-site feature--park, greenbelt, etc.</option>
+                <option value="RRNe">Within 200' of East-West Railroad</option>
+            </select>
+
+            <label for="BldgType">Type of dwelling</label>
+            <select id="BldgType" name="BldgType">
+                <option value="1Fam">Single-family Detached</option>
+                <option value="2Fam">Two-family Conversion; originally built as one-family dwelling</option>
+                <option value="Duplex">Duplex</option>
+                <option value="Twnhs">Townhouse</option>
+                <option value="TwnhsE">Townhouse End Unit</option>
+                <option value="2fmCon">Two-family Conversion; built as two-family dwelling with a condo association</option>
+                <option value="Duplex">Duplex - All STYLES AND AGES</option>
+                <option value="Twnhs">Townhouse - Inside Unit</option>
+                <option value="TwnhsE">Townhouse - End Unit</option>
+            </select>
+
+            <label for="HouseStyle">Style of dwelling</label>
+            <select id="HouseStyle" name="HouseStyle">
+                <option value="1Story">One Story</option>
+                <option value="1.5Fin">One and a half Story: 2nd level finished</option>
+                <option value="2Story">Two Story</option>
+                <option value="2.5Fin">Two and a half Story: 2nd level finished</option>
+                <option value="SFoyer">Split Foyer</option>
+                <option value="SLvl">Split Level</option>
+            </select>
+
+            <label for="lot_shape">Forme du terrain :</label>
+            <select id="lot_shape" name="lot_shape">
+                <option value="Reg">Regular</option>
+                <option value="IR2">Moderately Irregular</option>
+                <option value="IR1">Slightly irregular</option>
+                <option value="IR3">Irregular</option>
+            </select><br><br>
+    
+            <label for="year_built">YearBuilt: Original construction date</label>
+            <input type="number" id="year_built" name="year_built" required><br><br>
+            
+            <label for="year_remod_add">YearRemodAdd: Remodel date (same as YearBuilt if no remodeling or additions)</label>
+            <input type="number" id="year_remod_add" name="year_remod_add" required><br><br>
+            
+            <label for="roof_style">RoofStyle</label>
+            <select id="roof_style" name="roof_style">
+                <option value="Flat">Flat</option>
+                <option value="Gable">Gable</option>
+                <option value="Hip">Hip</option>
+                <option value="Gambrel">Gabrel (Barn)</option>
+                <option value="Mansard">Mansard</option>
+                <option value="Shed">Shed</option>
+            </select>
+            
+            <label for="roof_matl">RoofMatl: Roof material</label>
+            <select id="roof_matl" name="roof_matl">
+                <option value="CompShg">Composite Shingle</option>
+                <option value="WdShngl">Wood Shingle</option>
+                <option value="WdShake">Wood Shake</option>
+                <option value="CBlock">Cinder Block</option>
+                <option value="AsbShng">Asbestos Shingles</option>
+                <option value="AsphShn">Asphalt Shingles</option>
+                <option value="Stucco">Stucco</option>
+                <option value="BrkFace">Brick Face</option>
+                <option value="Stone">Stone</option>
+                <option value="Wood">Wood</option>
+                <option value="Metal">Metal</option>
+                <option value="Other">Other</option>
+            </select>
+            
+            <label for="exterior2nd">Exterior2nd: Exterior covering on house</label>
+            <select id="exterior2nd" name="exterior2nd">
+                <option value="BrkFace">Brick Face</option>
+                <option value="CBlock">Cinder Block</option>
+            </select>
+            
+            <label for="MasVnrType">MasVnrType: Masonry veneer type</label>
+            <select id="MasVnrType" name="Mas_vnr_type">
+                <option value="BrkCmn">Brick Common</option>
+                <option value="BrkFace">Brick Face</option>
+                <option value="CBlock">Cinder Block</option>
+                <option value="None">None</option>
+                <option value="Stone">Stone</option>
+            </select>
+            
+            <label for="MasVnrArea">MasVnrArea: Masonry veneer area in square feet</label>
+            <input type="number" id="MasVnrArea" name="Mas_vnr_area"><br><br>
+            
+            
+            <label for="BsmtQual">BsmtQual: Evaluates the height of the basement</label>
+            <select id="BsmtQual" name="BsmtQual">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Typical</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+                <option value="NA">No Basement</option>
+            </select>
+            
+            <label for="BsmtCond">BsmtCond: Evaluates the general condition of the basement</label>
+            <select id="BsmtCond" name="BsmtCond">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Typical</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+                <option value="NA">No Basement</option>
+            </select>
+            
+            <label for="BsmtExposure">BsmtExposure: Walkout or garden level basement walls</label>
+            <select id="BsmtExposure" name="BsmtExposure">
+                <option value="Gd">Good Exposure</option>
+                <option value="Av">Average Exposure</option>
+                <option value="Mn">Mimimum Exposure</option>
+                <option value="No">No Exposure</option>
+                <option value="NA">No Basement</option>
+            </select>
+            
+            <label for="BsmtFinType1">BsmtFinType1: Rating of basement finished area</label>
+            <select id="BsmtFinType1" name="BsmtFinType1">
+                <option value="GLQ">Good Living Quarters</option>
+                <option value="ALQ">Average Living Quarters</option>
+                <option value="BLQ">Below Average Living Quarters</option>
+                <option value="Rec">Average Rec Room</option>
+                <option value="LwQ">Low Quality</option>
+                <option value="Unf">Unfinshed</option>
+                <option value="NA">No Basement</option>
+            </select>
+            
+            <label for="BsmtFinType2">BsmtFinType2: Rating of basement finished area (if multiple types)</label>
+            <select id="BsmtFinType2" name="BsmtFinType2">
+                <option value="GLQ">Good Living Quarters</option>
+                <option value="ALQ">Average Living Quarters</option>
+                <option value="BLQ">Below Average Living Quarters</option>
+                <option value="Rec">Average Rec Room</option>
+                <option value="LwQ">Low Quality</option>
+                <option value="Unf">Unfinshed</option>
+                <option value="NA">No Basement</option>
+            </select>
+
+            <label for="Exterior1st">Exterior1st</label>
+            <select id="Exterior1st" name="Exterior1st">
+                <option value="BrkFace">Brick Face</option>
+                <option value="CBlock">Cinder Block</option>
+            </select>
+
+            <label for="overall_qual">OverallQual: Rates the overall material and finish of the house</label>
+            <select id="overall_qual" name="overall_qual">
+                <option value="10">Very Excellent</option>
+                <option value="9">Excellente</option>
+                <option value="7"> Good</option>
+                <option value="6">Above Average</option>
+                <option value="5">Average</option>
+                <option value="4"> Below Average</option>
+                <option value="3">Fair</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+            </select><br><br>
+            
+            <label for="exter_qual">ExterQual: Exterior material quality</label>
+            <select id="exter_qual" name="exter_qual">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Average/Typical</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+            </select>
+            
+            <label for="exter_cond">ExterCond: Present condition of the material on the exterior</label>
+            <select id="exter_cond" name="exter_cond">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Average/Typical</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+            </select>
+            
+            <label for="heating">Heating: Type of heating</label>
+            
+            <label for="foundation">Foundation: Type of foundation</label>
+            <select id="foundation" name="foundation">
+                <option value="PConc">Poured Contrete</option>
+                <option value="CBlock">Cinder Block</option>
+                <option value="BrkTil">Brick and Tile</option>
+                <option value="Stone">Stone</option>
+                <option value="Wood">Wood</option>
+                <option value="Slab">Slab</option>
+                <option value="Stone/Wood">Stone or Wood</option>
+                <option value="Metal">Metal</option>
+                <option value="Roll">Roll</option>
+                <option value="CompShg">Composite Shingle</option>
+                <option value="AsbShng">Asbestos Shingle</option>
+                <option value="WdShng">Wood Shingle</option>
+                <option value="WdShake">Wood Shake</option>
+            </select>
+
+            <label for="overall_cond">Condition générale :</label>
+            <select id="overall_cond" name="overall_cond">
+                <option value="10">Very Excellent</option>
+                <option value="9">Excellent</option>
+                <option value="8">Very Good</option>
+                <option value="7"> Good</option>
+                <option value="6">Above Average</option>
+                <option value="5">Average</option>
+                <option value="4"> Below Average</option>
+                <option value="3">Fair</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+            </select><br><br>
+
+
+            <label for="gr_liv_area">GrLivArea: Above grade (ground) living area square feet:</label>
+            <input type="number" id="gr_liv_area" name="gr_liv_area" required><br><br>
+    
+            <label for="full_bath">FullBath: Full bathrooms above grade:</label>
+            <input type="number" id="full_bath" name="full_bath" required><br><br>
+    
+            <label for="bedroom">Bedroom: Bedrooms above grade:</label>
+            <input type="number" id="bedroom" name="bedroom" required class="rounded"><br><br>
+    
+            <label for="kitchen_qual">Qualité de la cuisine :</label>
+            <select id="kitchen_qual" name="kitchen_qual">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Typical/Average</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+            </select><br><br>
+            <button type="submit">Predire le prix</button>
+        </form>
+     </div>   
+    <h3 class="text-lime-900">Résultat de la prédiction : {{ prediction }}</h3>
+
+    </main>
 </body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>

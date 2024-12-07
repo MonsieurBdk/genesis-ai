@@ -110,11 +110,38 @@ def predict(request):
             ms_subclass = int(request.POST.get('ms_subclass', 0))
             ms_zoning = request.POST.get('ms_zoning', "")
             lot_area = float(request.POST.get('lot_area', 0))
+            LotFrontage = int(request.POST.get('LotFrontage', 0))
+            Alley = request.POST.get('Alley', "")
             street = request.POST.get('street', "")
+            LandContour = request.POST.get('LandContour', "")
             lot_shape = request.POST.get('lot_shape', "")
+            LandSlope = request.POST.get('LandSlope', "")
+            Neighborhood = request.POST.get('Neighborhood', "")
+            Condition1 = request.POST.get('Condition1', "")
+            Condition2 = request.POST.get('Condition2', "")
+            BldgType = request.POST.get('BldgType', "")
+            HouseStyle = request.POST.get('HouseStyle', "")
+            Utilities = request.POST.get('Utilities', "")
+            LotConfig = request.POST.get('LotConfig', "")
+            roof_style = request.POST.get('roof_style', "")
+            roof_matl = request.POST.get('roof_matl', "")
             year_built = int(request.POST.get('year_built', 0))
+            Exterior1st = request.POST.get('Exterior1st', "")
+            year_remod_add = int(request.POST.get('year_remod_add', 0))
             overall_qual = int(request.POST.get('overall_qual', 0))
             overall_cond = int(request.POST.get('overall_cond', 0))
+            exter_qual = request.POST.get('exter_qual', "")
+            foundation = request.POST.get('foundation', "")
+            exterior2nd = request.POST.get('exterior2nd', "")
+            Exterior1st = request.POST.get('Exterior1st', "")
+            Mas_vnr_type = request.POST.get('Mas_vnr_type', "")
+            BsmtQual = request.POST.get('BsmtQual', "")
+            BsmtCond = request.POST.get('BsmtCond', "")
+            BsmtExposure = request.POST.get('BsmtExposure', "")
+            BsmtFinType1 = request.POST.get('BsmtFinType1', "")
+            BsmtFinType2 = request.POST.get('BsmtFinType2', "")
+            Mas_vnr_area = float(request.POST.get('Mas_vnr_area', 0))
+            exter_cond = request.POST.get('exter_cond', "")
             gr_liv_area = float(request.POST.get('gr_liv_area', 0))
             full_bath = int(request.POST.get('full_bath', 0))
             bedroom = int(request.POST.get('bedroom', 0))
@@ -135,6 +162,33 @@ def predict(request):
                 'full_bath': full_bath,
                 'bedroom_abvgr': bedroom,
                 'kitchen_qual': kitchen_qual,
+                'LotConfig': LotConfig,
+                'LotFrontage': LotFrontage,
+                'Alley': Alley,
+                'LandContour':  LandContour,
+                'Utilities':  Utilities,
+                'LandSlope': LandSlope,
+                'Neighborhood': Neighborhood,
+                'Condition1': Condition1,
+                'Condition2': Condition2,
+                'BldgType': BldgType,
+                'HouseStyle': HouseStyle,
+                'roof_style': roof_style,
+                'roof_matl': roof_matl,
+                'year_remod_add': year_remod_add,
+                'exter_qual': exter_qual,
+                'year_built': year_built,
+                'foundation': foundation,
+                'Exterior1st' : Exterior1st,
+                'Mas_vnr_type': Mas_vnr_type,
+                'exter_cond': exterior_cond,
+                'exterior2nd': exterior2nd,
+                'Mas_vnr_area': Mas_vnr_area,
+                'BsmtQual': BsmtQual,
+                'BsmtCond': BsmtCond,
+                'BsmtExposure': BsmtExposure,
+                'BsmtFinType1': BsmtFinType1,
+                'BsmtFinType2': BsmtFinType2,
             }
             
             data_df = transform_data_map_to_dataframe(data_map)
