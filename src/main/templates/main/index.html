@@ -52,12 +52,12 @@
                 <option value="RH">Residential High Density</option>
             </select><br><br>
     
+            <label for="LotFrontage">  Linear feet of street connected to property</label>
+            <input class="rounded" type="number" id="LotFrontage" name="LotFrontage" required><br><br>
+
             <label for="lot_area"> Lot size in square feet:</label>
             <input class="rounded" type="number" id="lot_area" name="lot_area" required><br><br>
 
-            <label for="LotFrontage">  Linear feet of street connected to property</label>
-            <input class="rounded" type="number" id="LotFrontage" name="LotFrontage" required><br><br>
-    
             <label for="street">Street: Type of road access to property:</label>
             <select id="street" name="street">
                 <option value="Pave">Paved</option>
@@ -70,6 +70,14 @@
                 <option value="Grvl">Gravel</option>
             </select><br><br>
     
+            <label for="lot_shape">Forme du terrain :</label>
+            <select id="lot_shape" name="lot_shape">
+                <option value="Reg">Regular</option>
+                <option value="IR2">Moderately Irregular</option>
+                <option value="IR1">Slightly irregular</option>
+                <option value="IR3">Irregular</option>
+            </select><br><br>
+
             <label for="LandContour">Street: Type of road access to property:</label>
             <select id="LandContour" name="LandContour">
                 <option value="Lvl">Near Flat/Level</option>
@@ -147,15 +155,35 @@
                 <option value="SFoyer">Split Foyer</option>
                 <option value="SLvl">Split Level</option>
             </select>
-
-            <label for="lot_shape">Forme du terrain :</label>
-            <select id="lot_shape" name="lot_shape">
-                <option value="Reg">Regular</option>
-                <option value="IR2">Moderately Irregular</option>
-                <option value="IR1">Slightly irregular</option>
-                <option value="IR3">Irregular</option>
-            </select><br><br>
     
+            <label for="overall_qual">OverallQual: Rates the overall material and finish of the house</label>
+            <select id="overall_qual" name="overall_qual">
+                <option value="10">Very Excellent</option>
+                <option value="9">Excellente</option>
+                <option value="7"> Good</option>
+                <option value="6">Above Average</option>
+                <option value="5">Average</option>
+                <option value="4"> Below Average</option>
+                <option value="3">Fair</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+            </select><br><br>
+
+            <label for="overall_cond">Condition générale :</label>
+            <select id="overall_cond" name="overall_cond">
+                <option value="10">Very Excellent</option>
+                <option value="9">Excellent</option>
+                <option value="8">Very Good</option>
+                <option value="7"> Good</option>
+                <option value="6">Above Average</option>
+                <option value="5">Average</option>
+                <option value="4"> Below Average</option>
+                <option value="3">Fair</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+            </select><br><br>
+
+
             <label for="year_built">YearBuilt: Original construction date</label>
             <input type="number" id="year_built" name="year_built" required><br><br>
             
@@ -174,24 +202,25 @@
             
             <label for="roof_matl">RoofMatl: Roof material</label>
             <select id="roof_matl" name="roof_matl">
-                <option value="CompShg">Composite Shingle</option>
+                <option value="CompShg Standard">Composite Shingle</option>
                 <option value="WdShngl">Wood Shingle</option>
                 <option value="WdShake">Wood Shake</option>
-                <option value="CBlock">Cinder Block</option>
-                <option value="AsbShng">Asbestos Shingles</option>
-                <option value="AsphShn">Asphalt Shingles</option>
-                <option value="Stucco">Stucco</option>
-                <option value="BrkFace">Brick Face</option>
-                <option value="Stone">Stone</option>
-                <option value="Wood">Wood</option>
                 <option value="Metal">Metal</option>
-                <option value="Other">Other</option>
             </select>
             
+            <label for="Exterior1st">Exterior1st</label>
+            <select id="Exterior1st" name="Exterior1st">
+                <option value="BrkFace">Brick Face</option>
+                <option value="CBlock">Cinder Block</option>
+                <option value="CemntBd">Cement Board</option>
+                <option value="HdBoard">Hard Board</option>
+            </select>
+
             <label for="exterior2nd">Exterior2nd: Exterior covering on house</label>
             <select id="exterior2nd" name="exterior2nd">
                 <option value="BrkFace">Brick Face</option>
                 <option value="CBlock">Cinder Block</option>
+                <option value="HdBoard">Hard Board</option>
             </select>
             
             <label for="MasVnrType">MasVnrType: Masonry veneer type</label>
@@ -206,7 +235,34 @@
             <label for="MasVnrArea">MasVnrArea: Masonry veneer area in square feet</label>
             <input type="number" id="MasVnrArea" name="Mas_vnr_area"><br><br>
             
-            
+            <label for="exter_qual">ExterQual: Exterior material quality</label>
+            <select id="exter_qual" name="exter_qual">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Average/Typical</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+            </select>
+
+            <label for="exter_cond">ExterCond: Present condition of the material on the exterior</label>
+            <select id="exter_cond" name="exter_cond">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Average/Typical</option>
+                <option value="Fa">Fair</option>
+                <option value="Po">Poor</option>
+            </select>
+
+            <label for="foundation">Foundation: Type of foundation</label>
+            <select id="foundation" name="foundation">
+                <option value="PConc">Poured Contrete</option>
+                <option value="CBlock">Cinder Block</option>
+                <option value="BrkTil">Brick and Tile</option>
+                <option value="Stone">Stone</option>
+                <option value="Wood">Wood</option>
+                <option value="Slab">Slab</option>
+            </select>
+
             <label for="BsmtQual">BsmtQual: Evaluates the height of the basement</label>
             <select id="BsmtQual" name="BsmtQual">
                 <option value="Ex">Excellent</option>
@@ -247,6 +303,9 @@
                 <option value="NA">No Basement</option>
             </select>
             
+            <label for="BsmtFinSF1">BsmtFinSF1: Type 1 finished square feet</label>
+            <input type="number" id="BsmtFinSF1" name="BsmtFinSF1" required><br><br>
+
             <label for="BsmtFinType2">BsmtFinType2: Rating of basement finished area (if multiple types)</label>
             <select id="BsmtFinType2" name="BsmtFinType2">
                 <option value="GLQ">Good Living Quarters</option>
@@ -257,86 +316,75 @@
                 <option value="Unf">Unfinshed</option>
                 <option value="NA">No Basement</option>
             </select>
+            
+            <label for="BsmtFinSF2">BsmtFinSF2: Type 2 finished square feet</label>
+            <input type="number" id="BsmtFinSF2" name="BsmtFinSF2" required><br><br>
 
-            <label for="Exterior1st">Exterior1st</label>
-            <select id="Exterior1st" name="Exterior1st">
-                <option value="BrkFace">Brick Face</option>
-                <option value="CBlock">Cinder Block</option>
+            <label for="BsmtUnfSF">Unfinished square feet of basement area</label>
+            <input type="number" id="BsmtUnfSF" name="BsmtUnfSF" required><br><br>
+
+            <label for="TotalBsmtSF">Total square feet of basement area</label>
+            <input type="number" id="TotalBsmtSF" name="TotalBsmtSF" required><br><br>
+
+            <label for="Heating">Type of heating</label>
+            <select id="Heating" name="Heating">
+                <option value="Floor">Floor Furnace</option>
+                <option value="GasA">Gas forced warm air furnace</option>
+                <option value="GasW">Gas hot water or steam heat</option>
+                <option value="Grav">Gravity furnace</option>
             </select>
 
-            <label for="overall_qual">OverallQual: Rates the overall material and finish of the house</label>
-            <select id="overall_qual" name="overall_qual">
-                <option value="10">Very Excellent</option>
-                <option value="9">Excellente</option>
-                <option value="7"> Good</option>
-                <option value="6">Above Average</option>
-                <option value="5">Average</option>
-                <option value="4"> Below Average</option>
-                <option value="3">Fair</option>
-                <option value="2">Poor</option>
-                <option value="1">Very Poor</option>
-            </select><br><br>
-            
-            <label for="exter_qual">ExterQual: Exterior material quality</label>
-            <select id="exter_qual" name="exter_qual">
+            <label for="HeatingQC">HeatingQC: Heating quality and condition</label>
+            <select id="HeatingQC" name="HeatingQC">
                 <option value="Ex">Excellent</option>
-                <option value="Gd">Good</option>
+                <option value=" Gd">Good</option>
                 <option value="TA">Average/Typical</option>
                 <option value="Fa">Fair</option>
-                <option value="Po">Poor</option>
-            </select>
-            
-            <label for="exter_cond">ExterCond: Present condition of the material on the exterior</label>
-            <select id="exter_cond" name="exter_cond">
-                <option value="Ex">Excellent</option>
-                <option value="Gd">Good</option>
-                <option value="TA">Average/Typical</option>
-                <option value="Fa">Fair</option>
-                <option value="Po">Poor</option>
-            </select>
-            
-            <label for="heating">Heating: Type of heating</label>
-            
-            <label for="foundation">Foundation: Type of foundation</label>
-            <select id="foundation" name="foundation">
-                <option value="PConc">Poured Contrete</option>
-                <option value="CBlock">Cinder Block</option>
-                <option value="BrkTil">Brick and Tile</option>
-                <option value="Stone">Stone</option>
-                <option value="Wood">Wood</option>
-                <option value="Slab">Slab</option>
-                <option value="Stone/Wood">Stone or Wood</option>
-                <option value="Metal">Metal</option>
-                <option value="Roll">Roll</option>
-                <option value="CompShg">Composite Shingle</option>
-                <option value="AsbShng">Asbestos Shingle</option>
-                <option value="WdShng">Wood Shingle</option>
-                <option value="WdShake">Wood Shake</option>
             </select>
 
-            <label for="overall_cond">Condition générale :</label>
-            <select id="overall_cond" name="overall_cond">
-                <option value="10">Very Excellent</option>
-                <option value="9">Excellent</option>
-                <option value="8">Very Good</option>
-                <option value="7"> Good</option>
-                <option value="6">Above Average</option>
-                <option value="5">Average</option>
-                <option value="4"> Below Average</option>
-                <option value="3">Fair</option>
-                <option value="2">Poor</option>
-                <option value="1">Very Poor</option>
-            </select><br><br>
+            <label for="CentralAir">CentralAir: Central air conditioning</label>
+            <select id="CentralAir" name="CentralAir">
+                <option value="N">No</option>
+                <option value="Y">Yes</option>
+            </select>
 
+            <label for="Electrical">Electrical system</label>
+            <select id="Electrical" name="Electrical">
+                <option value="SBrkr">Standard Circuit Breakers & Romex</option>
+                <option value="FuseA"> Fuse Box over 60 AMP and all Romex wiring (Average)</option>
+                <option value="FuseF">F 60 AMP Fuse Box and mostly Romex wiring (Fair)</option>
+                <option value="Mix">Mixed</option>
+            </select>
+            
+            <label for="1stFlrSF"> First Floor square feet</label>
+            <input type="number" id="1stFlrSF" name="1stFlrSF" required><br><br>
 
-            <label for="gr_liv_area">GrLivArea: Above grade (ground) living area square feet:</label>
-            <input type="number" id="gr_liv_area" name="gr_liv_area" required><br><br>
+            <label for="2ndFlrSF">2ndFlrSF: Second floor square feet</label>
+            <input type="number" id="2ndFlrSF" name="2ndFlrSF" required><br><br>
+
+            <label for="LowQualFinSF">LowQualFinSF: Low quality finished square feet (all floors)</label>
+            <input type="number" id="LowQualFinSF" name="LowQualFinSF" required><br><br>
+
+            <label for="GrLivArea">GrLivArea: Above grade (ground) living area square feet</label>
+            <input type="number" id="GrLivArea" name="GrLivArea" required><br><br>
+
+            <label for="BsmtFullBath">BsmtFullBath: Basement full bathrooms</label>
+            <input type="number" id="BsmtFullBath" name="BsmtFullBath" required><br><br>
+
+            <label for="BsmtHalfBath">BsmtHalfBath: Basement half bathrooms</label>
+            <input type="number" id="BsmtHalfBath" name="BsmtHalfBath" required><br><br>
     
-            <label for="full_bath">FullBath: Full bathrooms above grade:</label>
-            <input type="number" id="full_bath" name="full_bath" required><br><br>
+            <label for="FullBath">FullBath: Full bathrooms above grade:</label>
+            <input type="number" id="FullBath" name="FullBath" required><br><br>
+
+            <label for="HalfBath">HalfBath: Half baths above grade</label>
+            <input type="number" id="HalfBath" name="HalfBath" required><br><br>
     
             <label for="bedroom">Bedroom: Bedrooms above grade:</label>
             <input type="number" id="bedroom" name="bedroom" required class="rounded"><br><br>
+
+            <label for="Kitchen">Kitchen: Kitchens above grade</label>
+            <input type="number" id="Kitchen" name="Kitchen" required class="rounded"><br><br>
     
             <label for="kitchen_qual">Qualité de la cuisine :</label>
             <select id="kitchen_qual" name="kitchen_qual">
@@ -346,6 +394,147 @@
                 <option value="Fa">Fair</option>
                 <option value="Po">Poor</option>
             </select><br><br>
+
+            <label for="TotRmsAbvGrd">TotRmsAbvGrd: Total rooms above grade (does not include bathrooms)</label>
+            <input type="number" id="TotRmsAbvGrd" name="TotRmsAbvGrd" required class="rounded"><br><br>
+
+            <label for="Functional">Functional: Home functionality (Assume typical unless deductions are warranted)</label>
+            <select id="Functional" name="Functional">
+                <option value="Typ">Typical Functionality</option>
+                <option value="Min1">Minor Deductions 1</option>
+                <option value="Min2">Minor Deductions 2</option>
+                <option value="Sev">Severely Damaged</option>
+                <option value="Sal">Salvage only</option>
+            </select><br><br>
+
+            <label for="Fireplaces">Fireplaces: Number of fireplaces</label>
+            <input type="number" id="Fireplaces" name="Fireplaces" required class="rounded"><br><br>
+
+            <label for="FireplaceQu">FireplaceQu: Fireplace quality</label>
+            <select id="FireplaceQu" name="FireplaceQu">
+                <option value="Ex">Excellent - Exceptional Masonry Fireplace</option>
+                <option value="Gd">Good - Masonry Fireplace in main level</option>
+                <option value="TA">Average - Prefabricated Fireplace in main living area or Masonry Fireplace in</option>
+                <option value="NA">No Fireplace</option>
+            </select><br><br>
+
+            <label for="GarageType">GarageType: Garage location</label>
+            <select id="GarageType" name="GarageType">
+                <option value="Attchd">Attached to home</option>
+                <option value="Basment">Basement Garage</option>
+                <option value="BuiltIn"> Built-In (Garage part of house - typically has room above garage)</option>
+                <option value="NA">No Garage</option>
+            </select><br><br>
+
+            <label for="GarageYrBlt">GarageYrBlt: Year garage was built</label>
+            <input type="number" id="GarageYrBlt" name="GarageYrBlt" required class="rounded"><br><br>
+
+            <label for="GarageFinish">GarageFinish: Interior finish of the garage</label>
+            <select id="GarageFinish" name="GarageFinish">
+                <option value="Fin">Finished</option>
+                <option value="RFn">Rough Finished</option>
+                <option value="Unf">Unfinished</option>
+                <option value="NA">No Garage</option>
+            </select><br><br>
+
+            <label for="GarageCars">GarageCars: Size of garage in car capacity</label>
+            <input type="number" id="GarageCars" name="GarageCars" required class="rounded"><br><br>
+
+            <label for="GarageArea">GarageArea: Size of garage in square feet</label>
+            <input type="number" id="GarageArea" name="GarageArea" required class="rounded"><br><br>           
+
+            <label for="GarageQual">GarageQual: Garage quality</label>
+            <select id="GarageQual" name="GarageQual">
+                <option value="Ex">Excellent - Exceptional Masonry Fireplace</option>
+                <option value="Gd">Good - Masonry Fireplace in main level</option>
+                <option value="TA">Typical/Average</option>
+                <option value="NA">No Garage</option>
+            </select><br><br>
+
+            <label for="GarageCond">GarageCond: Garage condition</label>
+            <select id="GarageCond" name="GarageCond">
+                <option value="Ex">Excellent</option>
+                <option value="Gd">Good</option>
+                <option value="TA">Typical/Average</option>
+                <option value="NA">No Garage</option>
+            </select><br><br>  
+            
+            <label for="PavedDrive">PavedDrive: Paved driveway</label>
+            <select id="PavedDrive" name="PavedDrive">
+                <option value="Y">Paved </option>
+                <option value="P">Partial Pavement</option>
+                <option value="N"> Dirt/Gravel</option>
+            </select><br><br> 
+
+            <label for="WoodDeckSF">WoodDeckSF: Wood deck area in square feet</label>
+            <input type="number" id="WoodDeckSF" name="WoodDeckSF" required class="rounded"><br><br>
+
+            <label for="OpenPorchSF">OpenPorchSF: Open porch area in square feet</label>
+            <input type="number" id="OpenPorchSF" name="OpenPorchSF" required class="rounded"><br><br>
+
+            <label for="EnclosedPorch">EnclosedPorch: Enclosed porch area in square feet</label>
+            <input type="number" id="EnclosedPorch" name="EnclosedPorch" required class="rounded"><br><br>
+
+            <label for="3SsnPorch">3SsnPorch: Three season porch area in square feet</label>
+            <input type="number" id="3SsnPorch" name="3SsnPorch" required class="rounded"><br><br>
+
+            <label for="ScreenPorch">ScreenPorch: Screen porch area in square feet</label>
+            <input type="number" id="ScreenPorch" name="ScreenPorch" required class="rounded"><br><br>
+
+            <label for="PoolArea">PoolArea: Pool area in square feet</label>
+            <input type="number" id="PoolArea" name="PoolArea" required class="rounded"><br><br>
+            
+            <label for="PoolQC">PoolQC: Pool quality</label>
+            <select id="PoolQC" name="PoolQC">
+                <option value="Ex">Excellent - Exceptional Masonry Fireplace</option>
+                <option value="Gd">Good - Masonry Fireplace in main level</option>
+                <option value="TA">Typical/Average</option>
+                <option value="NA">No Pool</option>
+            </select><br><br> 
+
+            <label for="Fence">Fence: Fence quality</label>
+            <select id="Fence" name="Fence">
+                <option value="GdPrv">Good Privacy</option>
+                <option value="MnPrv"> Minimum Privacy</option>
+                <option value="GdWo">Good Wood</option>
+                <option value="NA">No Fence</option>
+            </select><br><br> 
+
+            <label for="MiscFeature">MiscFeature: Miscellaneous feature not covered in other categories</label>
+            <select id="MiscFeature" name="MiscFeature">
+                <option value="Elev">Elevator</option>
+                <option value="Gar2"> 2nd Garage (if not described in garage section)</option>
+                <option value="Othr">Other</option>
+                <option value="NA">None</option>
+            </select><br><br> 
+
+            <label for="MiscVal">MiscVal: $Value of miscellaneous feature</label>
+            <input type="number" id="MiscVal" name="MiscVal" required class="rounded"><br><br>
+
+            <label for="MoSold">MoSold: Month Sold (MM)</label>
+            <input type="number" id="MoSold" name="MoSold" required class="rounded"><br><br>
+
+            <label for="YrSold">YrSold: Year Sold (YYYY)</label>
+            <input type="number" id="YrSold" name="YrSold" required class="rounded"><br><br>
+
+            <label for="SaleType">SaleType: Type of sale</label>
+            <select id="SaleType" name="SaleType">
+                <option value="WD">Warranty Deed - Conventional</option>
+                <option value="CWD">Warranty Deed - Cash</option>
+                <option value="New">Home just constructed and sold</option>
+                <option value="Oth">Other</option>
+                <option value="Con">Contract 15% Down payment regular terms</option>
+            </select><br><br>
+
+            <label for="SaleCondition">SaleCondition: Condition of sale</label>
+            <select id="SaleCondition" name="SaleCondition">
+                <option value="Normal">Normal Sale</option>
+                <option value="Abnorml">Abnormal Sale - trade, foreclosure, short sale</option>
+                <option value="AdjLand">Adjoining Land Purchase</option>
+                <option value="Family"> Sale between family members</option>
+                <option value="Partial"> Home was not completed when last assessed (associated with New Homes)</option>
+            </select><br><br>
+            
             <button type="submit">Predire le prix</button>
         </form>
      </div>   
