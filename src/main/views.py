@@ -2,7 +2,7 @@ from django.shortcuts import render
 import numpy as np
 import pandas as pd
 import joblib as jb
-
+from sklearn.linear_model import LinearRegression
 """
 # Create your views here.
 def main(request):
@@ -461,52 +461,63 @@ def predict(request):
                 'Yr Sold': [float(request.POST.get('YrSold'))],
                 'Sale Type': [request.POST.get('SaleType')],
                 'Sale Condition': [request.POST.get('SaleCondition')],
-                #'SalePrice': int(request.POST.get('SalePrice', 0)),
+                'SalePrice': [0],
                 #'alley': request.POST.get('Alley', ""),
                 #'fence': request.POST.get('Fence', ""),      
             }
 
-            #print(f" nos data {data_map}")
-            # Transformation des données
+    
+            total_ds = pd.read_csv('./assets/Ames_NO_Missing_Data.csv')
             data_df = pd.DataFrame(data_map)
-            #print(f" c'est pour la transformation {data_df}")
-            # Encode les colonnes catégoriques
-            df_objs = data_df.select_dtypes(include='object')
+           # print(f"LOADED DATA COLS LEN: {len(total_ds.columns)}")
+            #print(f"INPUT DATA COLS LEN: {len(data_df.columns)}")
+            final_df = pd.concat([total_ds,data_df],axis=0)
 
-            #print("Colonnes catégoriques (df_objs):")
-            #print(df_objs.dtypes)
-            #print(df_objs.head())
-            df_objs = df_objs.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-            df_objs = df_objs.fillna("Missing")
+            total_ds['MS SubClass'] = total_ds['MS SubClass'].apply(str)
+            final_df['MS SubClass'] = final_df['MS SubClass'].apply(str) 
 
-            for col in df_objs.columns:
-                unique_values = df_objs[col].nunique()
-                print(f"Colonne '{col}' - Nombre de valeurs uniques : {unique_values}")
+            df_objs = final_df.select_dtypes(include='object')
+            df_nums = final_df.select_dtypes(exclude='object') 
+            
+            model_obj_cls = total_ds.select_dtypes(include='object')
+            model_num_cls = total_ds.select_dtypes(exclude='object')
 
-            df_objs_dummies = pd.get_dummies(df_objs, drop_first=True)
-            #print(f"c'est pour les data categorielle{df_objs}")
-            print(f"Colonnes après encodage (dummies): {df_objs_dummies.columns.tolist()}")
-            print(df_objs_dummies.head())
-            print(f"c'est pour les data categorielle dummies {df_objs_dummies}")
+            df_objs = pd.get_dummies(df_objs, drop_first=True)
+            model_obj_cls = pd.get_dummies(model_obj_cls, drop_first=True)
+        
+            #model_num_cls = pd.get_dummies(model_num_cls, drop_first=True)
+            
 
-           # Colonnes numériques
-            df_nums = data_df.select_dtypes(exclude='object')
-            #print(f" c'est pour les data numerique{df_nums}")
+            model_obj_colums = model_obj_cls.columns
+            ds_dummies_cols = df_objs.columns
+            cols = [col for col in list(ds_dummies_cols) if col in list(model_obj_colums)]
 
-          # Concaténation des deux
-            #transformed_df = pd.concat([df_nums, df_objs], axis=1)
+            
+            df_objs = df_objs[cols]
+            
+            final_df_with_dummies = pd.concat([df_nums, df_objs],axis=1)
+            
+            
             # Chargement du modèle
             model = jb.load("./assets/linear_model.pkl")
+            #print(f"COLS ATTENDUES: {len(model.feature_names_in_)}")
+            columns = [col for col in final_df_with_dummies.columns if f'{col}' != 'SalePrice']
+            #print(f"LES COLONNES: {columns}\n\n")
 
-            # Aligner les colonnes avec celles attendues par le modèle
-           # expected_columns = model.feature_names_in_
-            #data_df_transformed = transform_features(data_df)
-           # print(len(data_df_transformed))
-
+            #print(f"LES DATAS: {final_df_with_dummies.drop('SalePrice', axis=1)}")
+            print('============================')
+            X = final_df_with_dummies.drop('SalePrice', axis=1)
+            print("************************")
+            #X = X[columns_in_order]
             # Prédiction
-            #prediction = model.predict(transformed_df)
+            i1 = len(final_df_with_dummies)-2
+            i2 = len(final_df_with_dummies) 
+            print("HELLO WORLD")
+            prediction = model.predict(X.tail(2))
+            print(f"LES PRÉDICTIONS : ${prediction}")
 
-            return render(request, "main/index.html", {"prediction": prediction[0]})
+
+            return render(request, "main/index.html", {"prediction": prediction[-1]})
 
         except Exception as e:
             # Gestion des erreurs
